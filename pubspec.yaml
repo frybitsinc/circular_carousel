@@ -1,5 +1,7 @@
-name: test_carousel
-description: A new Flutter project.
+name: circular_carousel
+description: A custom circular carousel.
+repository: https://github.com/frybitsinc/circular_carousel
+homepage: https://github.com/frybitsinc/circular_carousel
 publish_to: 'none'
 version: 0.1.0
 
