@@ -1,10 +1,16 @@
+
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
 class RotationSceneV1 extends StatefulWidget {
-  const RotationSceneV1({super.key});
+  const RotationSceneV1({
+    super.key,
+    this.isVertical = false,
+    this.isClockwise = true,
+  });
+  final bool isVertical;
+  final bool isClockwise;
 
   @override
   _RotationSceneV1State createState() => _RotationSceneV1State();
@@ -22,7 +28,12 @@ class _RotationSceneV1State extends State<RotationSceneV1> {
           colors: [Color(0xAA74ABE4), Color(0xAAA892ED)],
           stops: [0, 1],
         )),
-        child: const Center(child: MyScener()),
+        child: Center(
+            child: MyScener(
+              isVertical: widget.isVertical,
+              isClockwise: widget.isClockwise,
+            )
+        ),
       ),
     );
   }
@@ -48,7 +59,13 @@ class CardData {
 }
 
 class MyScener extends StatefulWidget {
-  const MyScener({super.key});
+  const MyScener({
+    super.key,
+    this.isVertical = false,
+    this.isClockwise = true,
+  });
+  final bool isVertical;
+  final bool isClockwise;
 
   @override
   _MyScenerState createState() => _MyScenerState();
@@ -69,25 +86,26 @@ class _MyScenerState extends State<MyScener>
     cardData = List.generate(numItems, (index) => CardData(index)).toList();
     radioStep = (pi * 2) / numItems;
 
-    _animationController =
-        AnimationController(vsync: this, duration: const Duration(seconds: 5));
+    _animationController = AnimationController(vsync: this, duration: const Duration(seconds: 5));
 
-    _animationController.addListener(() => setState(() {}));
-    _animationController.addStatusListener((status) async {
-      if (status == AnimationStatus.completed) {
-        _animationController.value = 0;
-        _animationController.animateTo(1);
-        ++centerIdx;
-      }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _animationController.addListener(() => setState(() {}));
+      _animationController.addStatusListener((status) async {
+        if (status == AnimationStatus.completed) {
+          _animationController.value = 0;
+          _animationController.animateTo(1);
+          ++centerIdx;
+        }
 
-      // if (status == AnimationStatus.completed) {
-      //   print("inside");
-      //   print(_animationController.value);
-      //   // _animationController.value = 0;
-      //   // _animationController.animateTo(1);
-      //   // print(centerIdx);
-      //   // ++centerIdx;
-      // }
+        // if (status == AnimationStatus.completed) {
+        //   print("inside");
+        //   print(_animationController.value);
+        //   // _animationController.value = 0;
+        //   // _animationController.animateTo(1);
+        //   // print(centerIdx);
+        //   // ++centerIdx;
+        // }
+      });
     });
 
     _animationController.forward();
@@ -98,15 +116,27 @@ class _MyScenerState extends State<MyScener>
   @override
   Widget build(BuildContext context) {
     var ratio = _animationController.value;
+    // clockwise
     double animValue = centerIdx + ratio; // radians
+    // counter-clockwise
+    if(widget.isClockwise==false){
+      animValue = centerIdx - ratio; // radians
+    }
     // process positions.
     for (var i = 0; i < cardData.length; ++i) {
       var c = cardData[i];
       double ang = c.idx * radioStep + animValue; // radians
       c.angle = ang + pi / 2;
+      // horizontal
       c.x = cos(ang) * radio;
       c.y = sin(ang) * 100;
       c.z = sin(ang) * radio;
+      // vertical
+      if(widget.isVertical){
+        c.x = sin(ang) * 100;
+        c.y = cos(ang) * radio;
+        c.z = sin(ang) * radio;
+      }
     }
 
     // sort in Z axis.

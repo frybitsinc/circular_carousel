@@ -7,7 +7,13 @@ import 'package:flutter/physics.dart';
 // int numItems = 10;
 
 class RotationSceneV3 extends StatefulWidget {
-  const RotationSceneV3({super.key});
+  const RotationSceneV3({
+    super.key,
+    this.isVertical = false,
+    this.isClockwise = true,
+  });
+  final bool isVertical;
+  final bool isClockwise;
 
   @override
   State<RotationSceneV3> createState() => _RotationSceneV3State();
@@ -16,29 +22,29 @@ class RotationSceneV3 extends StatefulWidget {
 class _RotationSceneV3State extends State<RotationSceneV3> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      // bottomNavigationBar: const SceneCardSelector(),
-      // bottomNavigationBar: const PageIndicator(),
-      body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xAA74ABE4), Color(0xAAA892ED)],
-          stops: [0, 1],
-        )),
-        child: CigCarousel(
-          children: List.generate(
-              10,
-              (index) => Container(
-                    color: Colors.primaries[index % Colors.primaries.length],
-                    alignment: Alignment.center,
-                    child: Text(
-                      index.toString(),
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  )),
-        ),
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xAA74ABE4), Color(0xAAA892ED)],
+            stops: [0, 1],
+          )),
+      child: CigCarousel(
+        isClockwise: widget.isClockwise,
+        isVertical: widget.isVertical,
+        children: List.generate(
+            10,
+                (index) => Container(
+              height: MediaQuery.of(context).size.height,
+              color: Colors.primaries[index % Colors.primaries.length],
+              alignment: Alignment.center,
+              child: Text(
+                index.toString(),
+                style: const TextStyle(color: Colors.white),
+              ),
+            )),
       ),
     );
   }
@@ -58,8 +64,15 @@ class CardData {
 }
 
 class CigCarousel extends StatefulWidget {
-  const CigCarousel({super.key, this.children = const []});
+  const CigCarousel({
+    super.key,
+    this.isVertical = false,
+    this.isClockwise = true,
+    this.children = const [],
+  });
 
+  final bool isVertical;
+  final bool isClockwise;
   final List<Widget> children;
 
   @override
@@ -126,6 +139,9 @@ class _CigCarouselState extends State<CigCarousel>
         (curr, next) => curr.z > next.z ? curr : next,
       );
       var nextIdx = (maxZ.idx + 1) % widget.children.length;
+      if(widget.isClockwise==false){
+        nextIdx = (maxZ.idx - 1) % widget.children.length;
+      }
 
       _frontCardAnimation(
         nextIdx,
@@ -201,9 +217,16 @@ class _CigCarouselState extends State<CigCarousel>
       var c = cardData[i];
       double ang = angleOffset + c.idx * angleStep;
       c.angle = ang;
+      // horizontal
       c.x = cos(ang) * radius;
       c.y = sin(ang) * 130 - 50;
       c.z = sin(ang) * radius;
+      // vertical
+      if(widget.isVertical){
+        c.x = sin(ang) * 130 - 50;
+        c.y = cos(ang) * radius;
+        c.z = sin(ang) * radius;
+      }
     }
 
     // sort in Z axis.
@@ -237,6 +260,7 @@ class _CigCarouselState extends State<CigCarousel>
     }).toList();
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
           child: GestureDetector(
@@ -247,7 +271,12 @@ class _CigCarouselState extends State<CigCarousel>
               _autoSlideTimer?.cancel();
             },
             onPanUpdate: (e) {
+              // horizontal mode
               _dragX += e.delta.dx;
+              // vertical mode
+              if(widget.isVertical){
+                _dragX += e.delta.dy;
+              }
               setState(() {});
             },
             onPanEnd: (e) {

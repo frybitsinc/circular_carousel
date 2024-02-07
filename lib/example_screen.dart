@@ -15,9 +15,11 @@ class ExampleScreen extends StatelessWidget {
         title: const Text("Examples"),
       ),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Column(
           children: [
             _horizontalDemo(context),
+            _verticalDemo(context),
           ],
         ),
       ),
@@ -39,6 +41,36 @@ class ExampleScreen extends StatelessWidget {
           Expanded(child: RotationSceneV1()),
           Expanded(child: RotationSceneV3()),
           Expanded(child: RotationSceneV2()),
+        ],
+      ),
+    );
+  }
+  Widget _verticalDemo(BuildContext context) {
+    return Container(
+      constraints: BoxConstraints(
+          minHeight: 800,
+          maxHeight: MediaQuery.of(context).size.height*1.6
+      ),
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 42),
+      child: const Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: Text("VERTICAL", style: TextStyle(fontSize: 24),),
+          ),
+          Expanded(
+            flex: 1,
+            child: RotationSceneV1(isVertical: true, isClockwise: false,),
+          ),
+          Expanded(
+            flex: 2,
+            child: SingleChildScrollView(
+              physics: NeverScrollableScrollPhysics(),
+              child: RotationSceneV3(isVertical: true, isClockwise: false,),
+            )
+          ),
+          // Expanded(child: RotationSceneV2(isVertical: true),),
         ],
       ),
     );

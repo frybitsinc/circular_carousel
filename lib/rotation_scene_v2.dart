@@ -1,12 +1,15 @@
 import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
 
 int numItems = 10;
 var onSelectCard = ValueNotifier<int>(0);
 
 class RotationSceneV2 extends StatefulWidget {
-  const RotationSceneV2({super.key});
+  const RotationSceneV2({
+    super.key,
+    // this.isVertical = false
+  });
+  // final bool isVertical;
 
   @override
   _RotationSceneV2State createState() => _RotationSceneV2State();
@@ -103,8 +106,9 @@ class _MyScenerState extends State<MyScener> with TickerProviderStateMixin {
       var c = cardData[i];
       double ang = initAngleOffset + c.idx * radioStep;
       c.angle = ang + pi / 2;
+      /// horizontal
       c.x = cos(ang) * radio;
-//      c.y = sin(ang) * 10;
+     // c.y = sin(ang) * 10;
       c.z = sin(ang) * radio;
     }
 

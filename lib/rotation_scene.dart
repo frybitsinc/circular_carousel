@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:test_carousel/main.dart';
 
 class RotationScene extends StatefulWidget {
-  const RotationScene({super.key});
+  const RotationScene({super.key, this.isVertical = false});
+  final bool isVertical;
 
   @override
   _RotationSceneState createState() => _RotationSceneState();
