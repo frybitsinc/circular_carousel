@@ -18,14 +18,13 @@ class _RotationSceneV3State extends State<RotationSceneV3> {
   Widget build(BuildContext context) {
     return Scaffold(
       // bottomNavigationBar: const SceneCardSelector(),
-      backgroundColor: Colors.blueAccent,
       // bottomNavigationBar: const PageIndicator(),
       body: Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xff74ABE4), Color(0xffA892ED)],
+          colors: [Color(0xAA74ABE4), Color(0xAAA892ED)],
           stops: [0, 1],
         )),
         child: CigCarousel(

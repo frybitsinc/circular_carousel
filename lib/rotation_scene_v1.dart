@@ -19,7 +19,7 @@ class _RotationSceneV1State extends State<RotationSceneV1> {
             gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xff74ABE4), Color(0xffA892ED)],
+          colors: [Color(0xAA74ABE4), Color(0xAAA892ED)],
           stops: [0, 1],
         )),
         child: const Center(child: MyScener()),

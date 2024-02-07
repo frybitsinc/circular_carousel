@@ -1,10 +1,5 @@
-import 'dart:math';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:test_carousel/rotation_scene.dart';
-import 'package:test_carousel/rotation_scene_v1.dart';
-import 'package:test_carousel/rotation_scene_v2.dart';
-import 'package:test_carousel/rotation_scene_v3.dart';
+import 'package:test_carousel/example_screen.dart';
 
 int numItems = 10;
 var onSelectCard = ValueNotifier<int>(0);
@@ -18,14 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      darkTheme:
-          ThemeData(platform: TargetPlatform.iOS, brightness: Brightness.dark),
-      home: const Column(
-        children: [
-          Expanded(child: RotationSceneV1()),
-          Expanded(child: RotationSceneV3()),
-        ],
-      ),
+      darkTheme: ThemeData(platform: TargetPlatform.iOS, brightness: Brightness.dark),
+      home: const ExampleScreen(),
     );
   }
 }

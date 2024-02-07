@@ -31,7 +31,7 @@ class _RotationSceneV2State extends State<RotationSceneV2> {
             gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xff74ABE4), Color(0xffA892ED)],
+          colors: [Color(0xAA74ABE4), Color(0xAAA892ED)],
           stops: [0, 1],
         )),
         child: const MyScener(),

@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:test_carousel/rotation_scene_v1.dart';
+import 'package:test_carousel/rotation_scene_v2.dart';
+import 'package:test_carousel/rotation_scene_v3.dart';
+
+class ExampleScreen extends StatelessWidget {
+  const ExampleScreen({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey.shade300,
+      appBar: AppBar(
+        elevation: 3,
+        backgroundColor: Colors.white,
+        title: const Text("Examples"),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _horizontalDemo(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _horizontalDemo(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.symmetric(horizontal: 42),
+      child: const Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: 24),
+            child: Text("HORIZONTAL", style: TextStyle(fontSize: 24),),
+          ),
+          Expanded(child: RotationSceneV1()),
+          Expanded(child: RotationSceneV3()),
+          Expanded(child: RotationSceneV2()),
+        ],
+      ),
+    );
+  }
+}
