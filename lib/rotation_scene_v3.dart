@@ -4,6 +4,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 
+import 'glb_viewer_widget.dart';
+
 // int numItems = 10;
 
 class RotationSceneV3 extends StatefulWidget {
@@ -95,6 +97,21 @@ class _CigCarouselState extends State<CigCarousel>
   double angleOffset = 0;
 
   Timer? _autoSlideTimer;
+
+  var objectList = [
+    'assets/glb/hamster.glb',
+    'assets/glb/glasses.glb',
+    'assets/glb/basic_hand.glb',
+    'assets/glb/cat.glb',
+    'assets/glb/mug.glb',
+    'assets/glb/slug.glb',
+    'assets/glb/hamster.glb',
+    'assets/glb/glasses.glb',
+    'assets/glb/basic_hand.glb',
+    'assets/glb/cat.glb',
+    'assets/glb/mug.glb',
+    'assets/glb/slug.glb',
+  ];
 
   @override
   void initState() {
@@ -324,7 +341,7 @@ class _CigCarouselState extends State<CigCarousel>
                 offset: const Offset(0, 2))
           ],
         ),
-        child: vo.widget,
+        child: GlbViewerWidget(path:objectList[vo.idx],), //vo.widget,
       ),
     );
     return c;
