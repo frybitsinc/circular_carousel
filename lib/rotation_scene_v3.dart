@@ -22,6 +22,19 @@ class RotationSceneV3 extends StatefulWidget {
 }
 
 class _RotationSceneV3State extends State<RotationSceneV3> {
+  var objectList = [
+    'assets/glb/hamster.glb',
+    'assets/glb/glasses.glb',
+    'assets/glb/basic_hand.glb',
+    'assets/glb/cat.glb',
+    'assets/glb/mug.glb',
+    'assets/glb/slug.glb',
+    'assets/glb/hamster.glb',
+    'assets/glb/glasses.glb',
+    'assets/glb/basic_hand.glb',
+    'assets/glb/cat.glb',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,12 +53,17 @@ class _RotationSceneV3State extends State<RotationSceneV3> {
             10,
                 (index) => Container(
               height: MediaQuery.of(context).size.height,
-              color: Colors.primaries[index % Colors.primaries.length],
-              alignment: Alignment.center,
-              child: Text(
-                index.toString(),
-                style: const TextStyle(color: Colors.white),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.primaries[index % Colors.primaries.length],
               ),
+
+              alignment: Alignment.center,
+              child: GlbViewerWidget(path:objectList[index],),
+              // Text(
+              //   index.toString(),
+              //   style: const TextStyle(color: Colors.white),
+              // ),
             )),
       ),
     );
@@ -97,21 +115,6 @@ class _CigCarouselState extends State<CigCarousel>
   double angleOffset = 0;
 
   Timer? _autoSlideTimer;
-
-  var objectList = [
-    'assets/glb/hamster.glb',
-    'assets/glb/glasses.glb',
-    'assets/glb/basic_hand.glb',
-    'assets/glb/cat.glb',
-    'assets/glb/mug.glb',
-    'assets/glb/slug.glb',
-    'assets/glb/hamster.glb',
-    'assets/glb/glasses.glb',
-    'assets/glb/basic_hand.glb',
-    'assets/glb/cat.glb',
-    'assets/glb/mug.glb',
-    'assets/glb/slug.glb',
-  ];
 
   @override
   void initState() {
@@ -329,10 +332,10 @@ class _CigCarouselState extends State<CigCarousel>
     c = Opacity(
       opacity: cardAlpha,
       child: Container(
-        width: 150,
+        width: 100,
         height: 100,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
+          shape: BoxShape.circle,
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(.2 + shadowAlpha * .2),
@@ -341,7 +344,7 @@ class _CigCarouselState extends State<CigCarousel>
                 offset: const Offset(0, 2))
           ],
         ),
-        child: GlbViewerWidget(path:objectList[vo.idx],), //vo.widget,
+        child: vo.widget,
       ),
     );
     return c;
@@ -377,7 +380,8 @@ class PageIndicator extends StatelessWidget {
                 decoration: BoxDecoration(
                   color:
                       Colors.white.withOpacity(index == selectedIndex ? 1 : .3),
-                  borderRadius: BorderRadius.circular(7),
+
+                  shape: BoxShape.circle,
                   boxShadow: index == selectedIndex
                       ? const [
                           BoxShadow(

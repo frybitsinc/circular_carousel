@@ -14,16 +14,16 @@ class GlbViewerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: EdgeInsets.only(top: 20, left: 20),
+      alignment: Alignment.center,
         width: width,
         height: height,
-        child: Center(
-          child: ModelViewer(
-            src: path,
-            autoRotate: true,
-            disableZoom: true,
-          ),
-        )
+        child:ModelViewer(
+          src: path,
+          autoRotate: true,
+          disableZoom: true,
+        ),
     );
   }
 }
