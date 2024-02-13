@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:test_carousel/rotation_scene_v1.dart';
-import 'package:test_carousel/rotation_scene_v2.dart';
-import 'package:test_carousel/rotation_scene_v3.dart';
+import 'rotation_scene_v1.dart';
+import 'rotation_scene_v2.dart';
+import 'rotation_scene_v3.dart';
 
 class ExampleScreen extends StatelessWidget {
   const ExampleScreen({super.key});

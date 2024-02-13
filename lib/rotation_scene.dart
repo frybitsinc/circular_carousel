@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:test_carousel/main.dart';
+import 'main.dart';
 
 class RotationScene extends StatefulWidget {
   const RotationScene({super.key, this.isVertical = false});

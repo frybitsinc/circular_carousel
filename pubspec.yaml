@@ -11,6 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  model_viewer_plus: ^1.7.0
 
 dev_dependencies:
   flutter_test:
@@ -18,4 +19,7 @@ dev_dependencies:
   flutter_lints: ^2.0.0
 
 flutter:
+  assets:
+    - assets/
+    - assets/glb/
   uses-material-design: true

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:test_carousel/example_screen.dart';
+
+import 'example_screen.dart';
 
 int numItems = 10;
 var onSelectCard = ValueNotifier<int>(0);
